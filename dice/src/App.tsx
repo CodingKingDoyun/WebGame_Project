@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import confetti from "canvas-confetti";
 
 interface HistoryEntry {
@@ -7,13 +7,33 @@ interface HistoryEntry {
 }
 
 const App: React.FC = () => {
-  const [money, setMoney] = useState(1000);
+  const [money, setMoney] = useState<number>(() => {
+    const stored = localStorage.getItem("money");
+    return stored ? JSON.parse(stored) : 1000;
+  });
+
+  const [history, setHistory] = useState<HistoryEntry[]>(() => {
+    const stored = localStorage.getItem("history");
+    return stored ? JSON.parse(stored) : [];
+  });
   const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
   const [diceResult, setDiceResult] = useState<number | null>(null);
   const [rotation, setRotation] = useState(0);
   const [showNumber, setShowNumber] = useState(false);
-  const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [rolling, setRolling] = useState(false);
+
+  useEffect(() => {
+    const storedMoney = localStorage.getItem("money");
+    const storedHistory = localStorage.getItem("history");
+
+    if (storedMoney) setMoney(JSON.parse(storedMoney));
+    if (storedHistory) setHistory(JSON.parse(storedHistory));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("money", JSON.stringify(money));
+    localStorage.setItem("history", JSON.stringify(history));
+  }, [money, history]);
 
   const rollDice = () => {
     if (rolling || money < 100) return;
@@ -106,8 +126,17 @@ const App: React.FC = () => {
           ))}
         </div>
         <p className="reward-info">숫자를 고르고 그 숫자가 나오면 +500만원</p>
+
+        <button
+          className="reset-button"
+          onClick={() => {
+            localStorage.clear();
+            window.location.reload();
+          }}
+        >
+          🔄 게임 초기화
+        </button>
       </div>
-      
       <style>{`
     .game-container {
       display: flex;
