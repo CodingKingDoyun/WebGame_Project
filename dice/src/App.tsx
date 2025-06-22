@@ -39,7 +39,7 @@ const App: React.FC = () => {
               <span>
                 {entry.number}{" "}
                 <span className="selected-note">
-                  (선택한 숫자: {entry.selected})
+                  ({entry.selected})
                 </span>
               </span>
               <span className={entry.delta >= 0 ? "gain" : "loss"}>
