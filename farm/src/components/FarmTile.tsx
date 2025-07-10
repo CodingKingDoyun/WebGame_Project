@@ -1,6 +1,7 @@
 // 📁 src/components/FarmTile.tsx
 import React from 'react';
 import './FarmTile.css';
+import { CROP_LIST } from '../constants/crops';
 
 type FarmTileProps = {
   row: number;
@@ -11,12 +12,6 @@ type FarmTileProps = {
   remainingTime?: number;
   growTime?: number;
   onClick: () => void;
-};
-
-const cropEmojis: Record<string, string> = {
-  감자: '🥔',
-  사과: '🍎',
-  포도: '🍇',
 };
 
 const FarmTile: React.FC<FarmTileProps> = ({ 
@@ -32,19 +27,21 @@ const FarmTile: React.FC<FarmTileProps> = ({
   const isMarketTile = row === 5 && col === 5;
 
   let content = '';
-  let backgroundColor = '#fff';
+  let backgroundColor = '#F5DEB3';
   
-  if (isMarketTile) {
-    content = '🏪';
-    backgroundColor = '#f9e79f';
-  } else if (type === 'crop' && cropName) {
-    content = cropEmojis[cropName] || '🌱';
-    // 수확 가능할 때 배경색 변경
-    backgroundColor = isReady ? '#90EE90' : '#deb887';
-  }
-
-  // 성장 진행도 계산
+  // 성장 진행도 계산 (먼저 계산)
   const progress = type === 'crop' ? ((growTime - remainingTime) / growTime) * 100 : 0;
+  
+  if (type === 'crop' && cropName) {
+    const cropInfo = CROP_LIST.find(c => c.name === cropName);
+    content = cropInfo?.icon || '🌱';
+    // 자동 재배 시스템: 진행도에 따른 배경색 변화
+    if (remainingTime <= 2) {
+      backgroundColor = '#90EE90'; // 곧 수확될 작물 (연한 초록)
+    } else {
+      backgroundColor = '#DEB887'; // 성장 중인 작물 (갈색)
+    }
+  }
 
   return (
     <div
@@ -52,7 +49,7 @@ const FarmTile: React.FC<FarmTileProps> = ({
       style={{
         width: '40px',
         height: '40px',
-        border: '1px solid gray',
+        border: '0.5px solid gray',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -60,6 +57,7 @@ const FarmTile: React.FC<FarmTileProps> = ({
         cursor: 'pointer',
         position: 'relative',
         overflow: 'hidden',
+        boxSizing: 'border-box',
       }}
     >
       {/* 성장 진행바 */}

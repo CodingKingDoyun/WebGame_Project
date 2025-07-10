@@ -1,0 +1,7 @@
+{
+  "default_instruction": "TypeScript로 개발 중이며, 코드 스타일은 간결하고 명확하게 유지해줘. React 함수형 컴포넌트를 사용할 것. 각 컴포넌트는 파일로 분리하는 걸 선호함.",
+  "file_type_instructions": {
+    ".tsx": "JSX는 보기 쉽게 줄바꿈하고, props 타입은 명확하게 지정해줘.",
+    ".css": "클래스명은 kebab-case로 작성하고, 다크 모드에 어울리는 색상을 선호해."
+  }
+}

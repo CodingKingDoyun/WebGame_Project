@@ -1,14 +1,17 @@
+// App.tsx
 import AuthPanel from "./components/AuthPanel";
 import FarmGame from "./components/FarmGame";
 import FarmGrid from './components/FarmGrid';
+import './index.css';
+
 
 function App() {
   return (
-    <div style={{ background: "#111", height: "100vh", color: "white" }}>
-      <AuthPanel />
-      <FarmGame />
-      <FarmGrid />
-    </div>
+      <div className="app-container">
+        <AuthPanel />
+        <FarmGame />
+        <FarmGrid />
+      </div>
   );
 }
 

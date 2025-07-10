@@ -5,9 +5,91 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #111;
+  color: #fff;
+  min-height: 100vh;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Dark mode app layout */
+.app-container {
+  background: #111;
+  min-height: 100vh;
+  color: white;
+}
+
+/* Auth panel styles */
+.auth-panel {
+  padding: 1rem;
+  color: white;
+  background: #333;
+  border-bottom: 1px solid #555;
+}
+
+.auth-panel button {
+  background: #007acc;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.auth-panel button:hover {
+  background: #005a99;
+}
+
+.auth-panel p {
+  margin: 0 0 0.5rem 0;
+  font-size: 16px;
+}
+
+/* Farm game styles */
+.farm-game {
+  padding: 1rem;
+  color: white;
+}
+
+.farm-game h2 {
+  margin: 0 0 1rem 0;
+  font-size: 24px;
+  color: #4ade80;
+}
+
+.loading-message {
+  color: white;
+  padding: 2rem;
+  font-size: 18px;
+  text-align: center;
+  background: #222;
+  border-radius: 8px;
+  margin: 2rem;
+  border: 2px solid #4ade80;
+}
+
+/* Farm grid styles */
+.farm-container {
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.farm-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.farm-grid {
+  display: grid;
+  grid-template-columns: repeat(15, 40px);
+  gap: 0;
+  margin-bottom: 20px;
+  justify-content: center;
 }

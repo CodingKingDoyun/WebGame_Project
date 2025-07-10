@@ -1,5 +1,6 @@
 // 📁 src/components/TileStatusPanel.tsx
 import React, { useState } from 'react';
+import './TileStatusPanel.css';
 
 interface TileStatusPanelProps {
   cropName: string;
@@ -21,32 +22,52 @@ const TileStatusPanel: React.FC<TileStatusPanelProps> = ({
   const [showUpgrades, setShowUpgrades] = useState(false);
 
   return (
-    <div style={{
-      position: 'absolute',
-      top: '100px',
-      left: '50%',
-      transform: 'translateX(-50%)',
-      backgroundColor: '#fff',
-      border: '2px solid #333',
-      padding: '16px',
-      width: '300px',
-      zIndex: 100,
-    }}>
-      <h3>{cropName} 상태</h3>
-      <p>성장 시간: {growTime}초</p>
-      <p>남은 시간: {remainingTime}초</p>
+    <div className="tile-status-panel">
+      <h3 className="tile-status-title">{cropName} 상태</h3>
+      
+      <div className="tile-status-info">
+        <p>성장 시간: {growTime}초</p>
+        <p>남은 시간: {remainingTime}초</p>
+      </div>
 
-      <button onClick={onRemove}>작물 제거</button>
-      <button onClick={() => setShowUpgrades(!showUpgrades)} style={{ marginLeft: '8px' }}>
-        {showUpgrades ? '업그레이드 닫기' : '업그레이드 열기'}
-      </button>
-      <button onClick={onClose} style={{ marginLeft: '8px' }}>닫기</button>
+      <div className="tile-status-buttons">
+        <button 
+          onClick={onRemove}
+          className="tile-status-button"
+        >
+          작물 제거
+        </button>
+        <button 
+          onClick={() => setShowUpgrades(!showUpgrades)}
+          className="tile-status-button secondary"
+        >
+          {showUpgrades ? '업그레이드 닫기' : '업그레이드 열기'}
+        </button>
+        <button 
+          onClick={onClose}
+          className="tile-status-button close"
+        >
+          닫기
+        </button>
+      </div>
 
       {showUpgrades && (
-        <div style={{ marginTop: '12px', borderTop: '1px solid #aaa', paddingTop: '8px' }}>
+        <div className="tile-upgrades">
           <h4>업그레이드</h4>
-          <button onClick={() => onUpgrade('speed')}>🌱 성장 속도 증가</button>
-          <button onClick={() => onUpgrade('yield')} style={{ marginLeft: '8px' }}>🌾 수확량 증가</button>
+          <div className="upgrade-buttons">
+            <button 
+              onClick={() => onUpgrade('speed')}
+              className="upgrade-button"
+            >
+              🌱 성장 속도 증가
+            </button>
+            <button 
+              onClick={() => onUpgrade('yield')}
+              className="upgrade-button"
+            >
+              🌾 수확량 증가
+            </button>
+          </div>
         </div>
       )}
     </div>

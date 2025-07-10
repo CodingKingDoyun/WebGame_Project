@@ -1,0 +1,34 @@
+/* 📁 src/components/MarketTile.css */
+
+.market-tile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.market-tile {
+  width: 100px;
+  height: 100px;
+  background-color: #8B4513;
+  border: 2px solid #654321;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 24px;
+  margin: 10px 0;
+  transition: all 0.2s;
+}
+
+.market-tile:hover {
+  background-color: #a0522d;
+  border-color: #8b4513;
+  transform: scale(1.05);
+}
+
+.market-tile-label {
+  color: #ffd700;
+  font-size: 14px;
+  text-align: center;
+}
