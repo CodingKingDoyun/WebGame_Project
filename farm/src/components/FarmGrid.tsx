@@ -185,7 +185,7 @@ const FarmGrid: React.FC = () => {
         disabled={isLoading}
         style={{
           position: 'fixed',
-          top: '10px',
+          bottom: '10px',
           left: '10px',
           background: isLoading ? '#999' : (showDebugPanel ? '#f44336' : '#4CAF50'),
           color: 'white',

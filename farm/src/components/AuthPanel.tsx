@@ -98,9 +98,6 @@ export default function AuthPanel() {
               <span style={{ color: '#fbbf24', fontSize: '12px' }}>🟡 연결 중...</span>
             )}
           </div>
-          <p style={{ fontSize: '12px', color: '#aaa', margin: '0.25rem 0' }}>
-            새로고침하거나 다른 기기에서도 농장이 유지됩니다
-          </p>
           <button onClick={handleLogout}>
             로그아웃
           </button>
