@@ -52,13 +52,11 @@ export const useFarmGame = () => {
   const tilesRef = useRef(tiles);
   const inventoryRef = useRef(inventory);
   const goldRef = useRef(gold);
-  const userRef = useRef(user);
   
   // ref 값들을 최신 상태로 업데이트
   useEffect(() => { tilesRef.current = tiles; }, [tiles]);
   useEffect(() => { inventoryRef.current = inventory; }, [inventory]);
   useEffect(() => { goldRef.current = gold; }, [gold]);
-  useEffect(() => { userRef.current = user; }, [user]);
 
   // 사용 가능한 작물 목록
   const availableCrops: AvailableCrop[] = CROP_LIST.map(crop => ({
@@ -69,7 +67,7 @@ export const useFarmGame = () => {
   }));
 
   // Firestore 호환 데이터로 변환하는 함수
-  const sanitizeForFirestore = useCallback((obj: any): any => {
+  const sanitizeForFirestore = (obj: any): any => {
     if (obj === null || obj === undefined) return null;
     if (Array.isArray(obj)) return obj.map(sanitizeForFirestore);
     if (typeof obj === 'object') {
@@ -82,7 +80,7 @@ export const useFarmGame = () => {
       return cleaned;
     }
     return obj;
-  }, []);
+  };
 
   // Firebase에 게임 데이터 저장하는 함수
   const saveGameData = useCallback(async () => {
@@ -142,7 +140,7 @@ export const useFarmGame = () => {
     } finally {
       isSaving.current = false;
     }
-  }, [user, sanitizeForFirestore]); // sanitizeForFirestore 의존성 추가
+  }, [user]);
 
   // 🚀 최적화된 저장 함수 - Firebase 사용량 90% 이상 감소
   const optimizedSave = useCallback(async (
@@ -218,7 +216,7 @@ export const useFarmGame = () => {
       
       console.log('📝 배치 저장 예약:', reason, '| 변경횟수:', changeCounter.current, '| 15초 후 실행 예정');
     }
-  }, [user, isLoading, saveGameData, pendingChanges]); // pendingChanges 의존성 추가
+  }, [user, isLoading, saveGameData]);
 
   // 🛡️ 웹 종료 시 강제 저장 (데이터 손실 방지)
   useEffect(() => {
@@ -281,12 +279,6 @@ export const useFarmGame = () => {
   // Firebase에서 게임 데이터 로드
   useEffect(() => {
     if (!user) return;
-
-    // 로딩 타임아웃 안전장치 (10초 후 강제 로딩 완료)
-    const loadingTimeout = setTimeout(() => {
-      console.warn('⚠️ 로딩 타임아웃 - 강제로 로딩 완료');
-      setIsLoading(false);
-    }, 10000);
 
     const loadGameData = async () => {
       setIsLoading(true);
@@ -371,28 +363,8 @@ export const useFarmGame = () => {
           // 오프라인 수확이 있었다면 즉시 저장
           if (Object.keys(offlineHarvests).length > 0) {
             setLoadingMessage('오프라인 진행 결과 저장 중...');
-            setTimeout(async () => {
-              // ref를 사용해서 최신 상태로 직접 저장
-              if (userRef.current && !isSaving.current) {
-                console.log('🚨 오프라인 진행 결과 즉시 저장');
-                isSaving.current = true;
-                try {
-                  const dataToSave = sanitizeForFirestore({
-                    tiles: tilesRef.current,
-                    inventory: inventoryRef.current,
-                    gold: goldRef.current,
-                    lastUpdated: Date.now(),
-                    version: 1
-                  });
-                  const userDocRef = doc(db, 'farmGame', userRef.current.uid);
-                  await setDoc(userDocRef, dataToSave, { merge: false });
-                  console.log('✅ 오프라인 진행 결과 저장 완료');
-                } catch (error) {
-                  console.error('❌ 오프라인 진행 결과 저장 실패:', error);
-                } finally {
-                  isSaving.current = false;
-                }
-              }
+            setTimeout(() => {
+              optimizedSave('immediate', '오프라인 진행');
             }, 500);
             await new Promise(resolve => setTimeout(resolve, 800));
           }
@@ -410,17 +382,11 @@ export const useFarmGame = () => {
         await new Promise(resolve => setTimeout(resolve, 800));
         console.log('✅ 게임 준비 완료 - 로딩 상태 해제');
         setIsLoading(false);
-        clearTimeout(loadingTimeout); // 타임아웃 클리어
       }
     };
 
     loadGameData();
-    
-    // 컴포넌트 언마운트 시 타임아웃 클리어
-    return () => {
-      clearTimeout(loadingTimeout);
-    };
-  }, [user]); // 의존성을 user만 남김 - 무한 루프 방지
+  }, [user, optimizedSave]);
 
   // 작물 성장 타이머
   useEffect(() => {
