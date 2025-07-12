@@ -13,8 +13,9 @@ const MarketTile: React.FC<MarketTileProps> = ({ onClick }) => {
         onClick={onClick}
         className="market-tile"
       >
-        🏪
+        📦
       </div>
+      <div className="market-tile-label"></div>
     </div>
   );
 };

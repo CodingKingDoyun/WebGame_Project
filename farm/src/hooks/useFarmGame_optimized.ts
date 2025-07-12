@@ -401,7 +401,7 @@ export const useFarmGame = () => {
           if (tile.type === 'crop' && tile.remainingTime !== undefined && tile.remainingTime > 0) {
             const newRemainingTime = Math.max(0, tile.remainingTime - 1);
             const wasNotReady = !tile.isReady;
-            const isNowReady = newRemainingTime <= 2;
+            const isNowReady = newRemainingTime <= 0;
             
             if (wasNotReady && isNowReady) {
               // 자동 수확 및 재심기

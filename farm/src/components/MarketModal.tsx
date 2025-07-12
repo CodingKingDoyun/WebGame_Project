@@ -47,7 +47,7 @@ const MarketModal: React.FC<MarketModalProps> = ({
     <div className="market-modal-overlay">
       <div className="market-modal-content">
         <div className="market-modal-header">
-          <h2 className="market-modal-title">🏪 농작물 시장</h2>
+          <h2 className="market-modal-title">📦 농작물 납품</h2>
           <div className="market-gold-display">
             💰 {gold}G
           </div>
@@ -56,7 +56,7 @@ const MarketModal: React.FC<MarketModalProps> = ({
         {!selectedCrop ? (
           // 작물 선택 화면
           <div>
-            <h3 style={{ color: '#8B4513', marginBottom: '16px' }}>판매할 작물을 선택하세요:</h3>
+            <h3 style={{ color: '#ffba7a', marginBottom: '16px' }}>납품할 작물을 선택하세요:</h3>
             <div className="market-crop-list">
               {Object.entries(inventory).map(([cropName, count]) => {
                 const cropInfo = cropList.find(c => c.name === cropName);
@@ -87,7 +87,7 @@ const MarketModal: React.FC<MarketModalProps> = ({
             
             {Object.values(inventory).every(count => count === 0) && (
               <div className="market-empty-message">
-                판매할 작물이 없습니다! 🌱<br/>
+                납품할 작물이 없습니다! 🌱<br/>
                 농장에서 작물을 기른 후 다시 오세요.
               </div>
             )}
@@ -116,7 +116,7 @@ const MarketModal: React.FC<MarketModalProps> = ({
 
             <div className="market-quantity-section">
               <label className="market-quantity-label">
-                판매 수량:
+                납품 수량:
               </label>
               <div className="market-quantity-controls">
                 <button
@@ -160,7 +160,7 @@ const MarketModal: React.FC<MarketModalProps> = ({
                 disabled={sellQuantity > maxQuantity || sellQuantity <= 0}
                 className="market-sell-button"
               >
-                💰 판매하기
+                📦 납품하기
               </button>
             </div>
           </div>

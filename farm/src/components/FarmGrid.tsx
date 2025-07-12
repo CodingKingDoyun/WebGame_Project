@@ -55,8 +55,8 @@ const FarmGrid: React.FC = () => {
 
     if (tile.type === 'crop') {
       // 작물 타일: 수확하고 자동 재배 시작 또는 타일 정보 확인
-      if (tile.remainingTime && tile.remainingTime <= 2) {
-        // 거의 완성된 작물은 수확 가능
+      if (tile.remainingTime && tile.remainingTime <= 0) {
+        // 완전히 성장 완료된 작물만 수확 가능
         harvestCrop(tileId);
       } else {
         // 성장 중인 작물은 정보 확인

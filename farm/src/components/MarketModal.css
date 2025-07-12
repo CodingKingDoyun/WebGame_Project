@@ -15,7 +15,7 @@
 
 .market-modal-content {
   background-color: #222;
-  border: 3px solid #8B4513;
+  border: 3px solid #ffba7a;
   border-radius: 12px;
   padding: 24px;
   width: 400px;
@@ -30,13 +30,13 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  border-bottom: 2px solid #8B4513;
+  border-bottom: 2px solid #ffba7a;
   padding-bottom: 12px;
 }
 
 .market-modal-title {
   margin: 0;
-  color: #8B4513;
+  color: #ffba7a;
   font-size: 24px;
 }
 
@@ -46,7 +46,7 @@
   border-radius: 20px;
   border: 2px solid #DAA520;
   font-weight: bold;
-  color: #8B4513;
+  color: #3d1d00;
 }
 
 .market-crop-list {
@@ -69,7 +69,7 @@
 
 .market-crop-item:hover {
   background-color: #444;
-  border-color: #8B4513;
+  border-color: #ffba7a;
 }
 
 .market-crop-info {
@@ -142,7 +142,7 @@
 
 .market-selected-name {
   margin: 0 0 8px 0;
-  color: #8B4513;
+  color: #ffba7a;
 }
 
 .market-selected-info {
@@ -157,7 +157,7 @@
   display: block;
   margin-bottom: 8px;
   font-weight: bold;
-  color: #8B4513;
+  color: #ffba7a;
 }
 
 .market-quantity-controls {
@@ -219,7 +219,7 @@
 .market-total-amount {
   font-size: 18px;
   font-weight: bold;
-  color: #8B4513;
+  color: #ffba7a;
 }
 
 .market-action-buttons {

@@ -9,26 +9,30 @@
 .market-tile {
   width: 100px;
   height: 100px;
-  background-color: #8B4513;
-  border: 2px solid #654321;
+  background-color: #ffba7a; /* 연한 베이지색 - 박스의 따뜻한 느낌 */
+  border: 2px solid #8B7355; /* 갈색 테두리 - 박스의 가장자리 */
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 24px;
+  font-size: 36px;
   margin: 10px 0;
   transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(139, 115, 85, 0.3); /* 은은한 갈색 그림자 */
 }
 
 .market-tile:hover {
-  background-color: #a0522d;
-  border-color: #8b4513;
+  background-color: #ffb26a; /* 호버 시 조금 더 진한 베이지 */
+  border-color: #704214; /* 호버 시 더 진한 갈색 테두리 */
   transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(139, 115, 85, 0.4); /* 호버 시 더 진한 그림자 */
 }
 
 .market-tile-label {
-  color: #ffd700;
+  color: #8B4513; /* 진한 갈색 - 박스/목재 느낌의 텍스트 */
   font-size: 14px;
   text-align: center;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7); /* 연한 흰색 텍스트 그림자로 가독성 향상 */
 }
